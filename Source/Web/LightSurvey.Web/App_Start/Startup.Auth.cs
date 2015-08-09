@@ -6,6 +6,8 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using LightSurvey.Web.Models;
+using LightSurvey.Data;
+using LightSurvey.Data.Models;
 
 namespace LightSurvey.Web
 {

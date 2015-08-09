@@ -11,6 +11,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using LightSurvey.Web.Models;
+using LightSurvey.Data.Models;
+using LightSurvey.Data;
 
 namespace LightSurvey.Web
 {
