@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApplicationDbContext.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +65,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LightSurvey.Data.Common\LightSurvey.Data.Common.csproj">
+      <Project>{0ad373f7-e64c-44f7-a473-dfbf856386ed}</Project>
+      <Name>LightSurvey.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\LightSurvey.Data.Models\LightSurvey.Data.Models.csproj">
       <Project>{96f8c43a-af16-4d57-b503-7f92aba21489}</Project>
       <Name>LightSurvey.Data.Models</Name>

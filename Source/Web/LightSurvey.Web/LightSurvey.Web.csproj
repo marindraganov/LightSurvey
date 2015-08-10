@@ -258,6 +258,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\LightSurvey.Data.Common\LightSurvey.Data.Common.csproj">
+      <Project>{0ad373f7-e64c-44f7-a473-dfbf856386ed}</Project>
+      <Name>LightSurvey.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\LightSurvey.Data.Models\LightSurvey.Data.Models.csproj">
       <Project>{96f8c43a-af16-4d57-b503-7f92aba21489}</Project>
       <Name>LightSurvey.Data.Models</Name>
@@ -265,6 +269,10 @@
     <ProjectReference Include="..\..\Data\LightSurvey.Data\LightSurvey.Data.csproj">
       <Project>{bbb72f63-c594-4598-9c40-075a3c056fb3}</Project>
       <Name>LightSurvey.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\LightSurvey.Commom\LightSurvey.Commom.csproj">
+      <Project>{94fa831b-1c61-4711-ab42-70fd8de91a23}</Project>
+      <Name>LightSurvey.Commom</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
