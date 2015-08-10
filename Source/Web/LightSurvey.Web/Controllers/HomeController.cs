@@ -1,4 +1,5 @@
-﻿using System;
+﻿using LightSurvey.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -25,6 +26,12 @@ namespace LightSurvey.Web.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
+        }
+
+        [ChildActionOnly]
+        public ActionResult SliderPartial()
+        {
+            return PartialView("_ImageSliderPartial", SliderImageViewModel.Images);
         }
     }
 }

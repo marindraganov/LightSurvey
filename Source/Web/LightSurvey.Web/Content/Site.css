@@ -1,6 +1,17 @@
 ﻿body {
-    padding-top: 50px;
+    padding-top: 110px;
     padding-bottom: 20px;
+}
+
+.logo-container {
+    border-top-left-radius: 20px;
+    background-color: white;
+}
+
+.logo{
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    max-height: 55px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -16,9 +27,46 @@
     white-space: normal;
 }
 
+.navbar-inverse{
+    background-color: white;
+    border-bottom-color: white;
+}
+
+.navbar-collapse {
+    border-color: #101010;
+    border-top-right-radius: 20px;
+    padding: 0 20px;
+}
+
+.container > .navbar-header,
+.container > .navbar-collapse {
+  background-color: #1E2730;
+}
+
+.container {
+    padding: 0;
+}
+
+.navbar-right {
+    margin-right: 0;
+}
+
+.navbar-left {
+    margin-left: 0;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: #b3b3b3;
+    padding: 15px;
+}
+
 /* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
     max-width: 280px;
+}
+
+footer {
+    float: right;
 }
