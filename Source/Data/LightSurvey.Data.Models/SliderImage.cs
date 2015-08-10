@@ -7,5 +7,7 @@
         public int Id { get; set; }
 
         public string LocalPath { get; set; }
+
+        public string AltName { get; set; }
     }
 }

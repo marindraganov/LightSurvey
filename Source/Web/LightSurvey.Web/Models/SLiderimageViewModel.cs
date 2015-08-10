@@ -7,12 +7,6 @@ namespace LightSurvey.Web.Models
 {
     public class SliderImageViewModel
     {
-        public static List<SliderImageViewModel> Images = new List<SliderImageViewModel>()
-        {
-            new SliderImageViewModel("../../Content/Images/SiteLogo.png", "Logo Image"),
-            new SliderImageViewModel("../../Content/Images/SiteLogo.png", "Logo Image")
-        };
-
         public SliderImageViewModel()
         {
         }

@@ -1,0 +1,60 @@
+﻿@using LightSurvey.Data.Models
+@model IEnumerable<SliderImage>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>SliderImages</h2>
+<p>
+    @Html.ActionLink("Add New", "AddImage")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            N
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AltName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LocalPath)
+        </th>
+        <th>
+            Preview
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th></th>
+    </tr>
+
+    @{int i = 0;}
+    @foreach (var item in Model)
+    {
+        i++;
+        <tr>
+            <td>
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AltName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocalPath)
+            </td>
+            <td>
+                <img class ="tmb-image" src="@item.LocalPath" alt="@item.AltName"/>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedOn)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+

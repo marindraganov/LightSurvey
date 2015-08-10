@@ -1,4 +1,7 @@
-﻿using LightSurvey.Web.Models;
+﻿using LightSurvey.Data;
+using LightSurvey.Data.Common.Repository;
+using LightSurvey.Data.Models;
+using LightSurvey.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,7 +34,10 @@ namespace LightSurvey.Web.Controllers
         [ChildActionOnly]
         public ActionResult SliderPartial()
         {
-            return PartialView("_ImageSliderPartial", SliderImageViewModel.Images);
+            List<SliderImage> images = new List<SliderImage>();
+            images.AddRange(new GenericRepository<SliderImage>(new ApplicationDbContext()).All().ToList());
+
+            return PartialView("_ImageSliderPartial", images);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model List<LightSurvey.Web.Models.SliderImageViewModel>
+﻿@using LightSurvey.Data.Models
+@model IEnumerable<SliderImage>
 
 <script src="~/Scripts/jssor.slider.mini.js"></script>
 <link href="~/Content/Slider/slider.css" rel="stylesheet" />
@@ -12,7 +13,7 @@
         @foreach (var image in @Model)
         {
             <div>
-                <img u="image" src="@image.Path" />
+                <img u="image" src="@image.LocalPath" />
             </div>
         }
     </div>
@@ -29,7 +30,7 @@
         init_jssor_slider1 = function (containerId) {
 
             var options = {
-                $AutoPlay: false,                                   //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
+                $AutoPlay: true,                                   //[Optional] Whether to auto play, to enable slideshow, this option must be set to true, default value is false
                 $SlideDuration: 750,                                //[Optional] Specifies default duration (swipe) for slide in milliseconds, default value is 500
                 $PauseOnHover: 2,
 
