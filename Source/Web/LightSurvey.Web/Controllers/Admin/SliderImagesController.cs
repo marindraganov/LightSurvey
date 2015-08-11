@@ -14,12 +14,6 @@ namespace LightSurvey.Web.Controllers.Admin
     {
         private IRepository<SliderImage> images;
 
-        public SliderImagesController()
-            : this(new GenericRepository<SliderImage>(new ApplicationDbContext()))
-        {
-        }
-    
-
         public SliderImagesController(IRepository<SliderImage> images)
         {
             this.images = images;
