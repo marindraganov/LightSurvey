@@ -7,11 +7,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AutoMapper.QueryableExtensions;
+using LightSurvey.Web.ViewModels.Home;
 
 namespace LightSurvey.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private IRepository<SliderImage> images;
+
+        public HomeController(IRepository<SliderImage> images)
+        {
+            this.images = images;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -34,8 +43,7 @@ namespace LightSurvey.Web.Controllers
         [ChildActionOnly]
         public ActionResult SliderPartial()
         {
-            List<SliderImage> images = new List<SliderImage>();
-            images.AddRange(new GenericRepository<SliderImage>(new ApplicationDbContext()).All().ToList());
+            var images = this.images.All().Project().To<HomeImageViewModel>();
 
             return PartialView("_ImageSliderPartial", images);
         }
