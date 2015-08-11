@@ -1,9 +1,9 @@
-﻿namespace LightSurvey.Web.ViewModels.Home
+﻿namespace LightSurvey.Web.ViewModels.SliderImage
 {
     using LightSurvey.Data.Models;
     using LightSurvey.Web.Infrastructure.Mapping;
 
-    public class HomeImageViewModel : IMapFrom<SliderImage>
+    public class SliderImageViewModel : IMapFrom<SliderImage>
     {
         public string LocalPath { get; set; }
 

@@ -1,14 +1,13 @@
 ﻿using LightSurvey.Data;
 using LightSurvey.Data.Common.Repository;
 using LightSurvey.Data.Models;
-using LightSurvey.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AutoMapper.QueryableExtensions;
-using LightSurvey.Web.ViewModels.Home;
+using LightSurvey.Web.ViewModels.SliderImage;
 
 namespace LightSurvey.Web.Controllers
 {
@@ -43,7 +42,7 @@ namespace LightSurvey.Web.Controllers
         [ChildActionOnly]
         public ActionResult SliderPartial()
         {
-            var images = this.images.All().Project().To<HomeImageViewModel>();
+            var images = this.images.All().Project().To<SliderImageViewModel>();
 
             return PartialView("_ImageSliderPartial", images);
         }

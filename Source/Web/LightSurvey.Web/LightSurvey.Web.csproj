@@ -204,10 +204,11 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\SliderImageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="ViewModels\Home\IndexImageViewModel.cs" />
+    <Compile Include="ViewModels\SliderImage\EditSliderImageViewModel.cs" />
+    <Compile Include="ViewModels\SliderImage\ListSliderImageViewModel.cs" />
+    <Compile Include="ViewModels\SliderImage\SliderImageViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -284,6 +285,7 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\SliderImages\Index.cshtml" />
     <Content Include="Views\SliderImages\AddImage.cshtml" />
+    <Content Include="Views\SliderImages\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,15 +1,19 @@
-﻿using LightSurvey.Data;
-using LightSurvey.Data.Common.Repository;
-using LightSurvey.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-
-namespace LightSurvey.Web.Controllers.Admin
+﻿namespace LightSurvey.Web.Controllers.Admin
 {
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Mvc;
+
+    using LightSurvey.Data;
+    using LightSurvey.Data.Common.Repository;
+    using LightSurvey.Data.Models;
+    using LightSurvey.Web.ViewModels.SliderImage;
+
+    using AutoMapper.QueryableExtensions;
+
     public class SliderImagesController : Controller
     {
         private IRepository<SliderImage> images;
@@ -22,7 +26,7 @@ namespace LightSurvey.Web.Controllers.Admin
         // GET: SliderImages
         public ActionResult Index()
         {
-            var images = this.images.All();
+            var images = this.images.All().Project().To<ListSliderImageViewModel>();
 
             return View(images);
         }
@@ -87,6 +91,35 @@ namespace LightSurvey.Web.Controllers.Admin
             if (imageForDel != null)
             {
                 this.images.Delete(Id);
+                this.images.SaveChanges();
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int Id)
+        {
+            var imageForEdit = this.images.All().Where(m => m.Id == Id).Select(m => m);
+
+            if (imageForEdit != null)
+            {
+                var image = imageForEdit.Project().To<EditSliderImageViewModel>().First();
+                return View(image);
+            }
+
+            return Redirect("Index");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int Id, string AltName)
+        {
+            var image = this.images.All().Where(m => m.Id == Id).Select(m => m).First();
+
+            if (image != null)
+            {
+                image.AltName = AltName;
                 this.images.SaveChanges();
             }
 
