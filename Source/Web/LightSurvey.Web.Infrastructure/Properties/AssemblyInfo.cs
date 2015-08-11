@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LightSurvey.Commom")]
+[assembly: AssemblyTitle("LightSurvey.Web.Infrastructure")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LightSurvey.Commom")]
+[assembly: AssemblyProduct("LightSurvey.Web.Infrastructure")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f48d78b4-989a-4a80-81bb-8c0c0d9b6ede")]
+[assembly: Guid("4a9d5d01-abae-4aa5-9dc0-844d8e0ea7d9")]
 
 // Version information for an assembly consists of the following four values:
 //
