@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - LightSurvey</title>
     @Styles.Render("~/Content/css")
 
     <meta name="description" content="LightSurvey" />
@@ -29,6 +29,7 @@
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("AdminPanel", "Index", "Admin")</li>
+                    <li>@Html.ActionLink("CreateSurvey", "Index", "CreateSurvey")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -38,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2015 - Mairn</p>
+            <p>&copy; 2015 - Marin</p>
         </footer>
     </div>
 

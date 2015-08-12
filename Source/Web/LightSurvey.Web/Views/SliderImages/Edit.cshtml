@@ -13,10 +13,8 @@
     <div class="form-horizontal">
         <hr />
         <div class="form-group">
-            @Html.HiddenFor(model => model.Id)
-
             <div class="col-md-10">
-                 <img style="max-height: 180px;" src="@Model.LocalPath" />
+                <img style="max-height: 180px;" src="@Model.LocalPath" />
             </div>
             <div class="col-md-10">
                 @Html.LabelFor(model => model.AltName)

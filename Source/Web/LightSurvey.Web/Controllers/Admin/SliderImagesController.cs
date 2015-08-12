@@ -113,7 +113,7 @@
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int Id, string AltName)
+        public ActionResult Edit(int Id, String AltName)
         {
             var image = this.images.All().Where(m => m.Id == Id).Select(m => m).First();
 
