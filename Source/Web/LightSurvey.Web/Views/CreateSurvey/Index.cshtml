@@ -4,27 +4,29 @@
 
 <h3>@ViewBag.Title</h3>
 
-    <div class="well well-sm">
-        <div>
-            <input type="radio" group="surveyType" name="surveyType" id="type1" value="1" checked/>
-            <label for="type1">Create new survey</label>
-        </div>
-        <div class="new-survey-form">
-            <hr />
-            @using (Html.BeginForm("CreateNewSurvey", "CreateSurvey", FormMethod.Post, new { enctype = "multipart/form-data" }))
-            {
-                @Html.AntiForgeryToken()
+<div class="well well-sm">
+    <div>
+        <input type="radio" group="surveyType" name="surveyType" id="type1" value="1" checked />
+        <label for="type1">Create new survey</label>
+    </div>
+    <div class="new-survey-form">
+        <hr />
+        @using (Html.BeginForm("CreateNewSurvey", "CreateSurvey", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="form-group">
                 <div>
                     @Html.Label("SurveyName")
                     <br />
                     @Html.TextBox("SurveyName")
                 </div>
                 <div class="btn">
-                    @Html.ActionLink("Create ->", "CreateNewSurvey", null, new { @class = "btn btn-success" })
+                    <input type="submit" value="Create ->" class="btn btn-success" />
                 </div>
-            }
-        </div>
+            </div>
+        }
     </div>
+</div>
 
 
 <div class="well well-sm">
@@ -34,15 +36,16 @@
     </div>
     <div class="existing-survey-form" style="display: none">
         <hr />
-        @using (Html.BeginForm("CopyAndEditSurvey", "CreateSurvey", FormMethod.Post, new { enctype = "multipart/form-data"}))
+        @using (Html.BeginForm("CopyAndEditSurvey", "CreateSurvey", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            @Html.AntiForgeryToken()
-            <div>
-                @Html.Label("ExistingSurveyName")<br />
-                @Html.DropDownList("ExistingSurveyName", (IEnumerable<SelectListItem>)ViewBag.items, "Select survey", new { @class = "form-control" })
-            </div>
-            <div class="btn">
-                @Html.ActionLink("Copy and edit ->", "CopyAndEditSurvey", null, new { @class = "btn btn-success" })
+            <div class="form-group">
+                <div>
+                    @Html.Label("ExistingSurveyName")<br />
+                    @Html.DropDownList("ExistingSurveyName", (IEnumerable<SelectListItem>)ViewBag.items, "Select survey", new { @class = "form-control" })
+                </div>
+                <div class="btn">
+                    <input type="submit" value="Copy and edit ->" class="btn btn-success" />
+                </div>
             </div>
         }
     </div>
@@ -61,7 +64,7 @@
             $('.new-survey-form').css('display', 'none');
         }
     }
-    
+
     $('input:radio').change(change);
 </script>
 }

@@ -1,0 +1,37 @@
+﻿@{
+    var ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "ajax-content",
+        //LoadingElementId = "displayLoading",
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        // AllowCache = true,
+        // Confirm = "Are you sure you want to update the time?"
+    };
+
+    ViewBag.LinkClass = "btn btn-lg btn-block  btn-default";
+}
+
+
+
+
+<div class="panel panel-default text-center">
+    <div class="panel-heading">
+        <h4>Builder</h4>
+    </div>
+    <ul class="list-group">
+        <li class="list-group-item">
+            @Ajax.ActionLink("SingleResponse", "SRQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+        </li>
+        <li class="list-group-item">
+            @Ajax.ActionLink("MultipleChoice", "MCQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+        </li>
+        <li class="list-group-item">
+            @Ajax.ActionLink("DropDownList", "DDLQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+        </li>
+        <li class="list-group-item">
+            @Ajax.ActionLink("DateTime", "DTQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+        </li>
+    </ul>
+    <div id="ajax-content"></div>
+</div>
