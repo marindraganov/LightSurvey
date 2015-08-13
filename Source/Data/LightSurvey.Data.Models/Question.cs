@@ -1,11 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LightSurvey.Data.Models
+﻿namespace LightSurvey.Data.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
+    public enum QuestionType
+    {
+        MultipleChoise,
+        SingleTextBox
+    }
+
     public class Question
     {
         public Question()
@@ -15,7 +19,11 @@ namespace LightSurvey.Data.Models
 
         public int Id { get; set; }
 
+        [Required]
+        public QuestionType Type { get; set; }
+
         public string Text { get; set; }
+
 
         public int Number { get; set; }
 
