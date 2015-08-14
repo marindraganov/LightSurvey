@@ -8,15 +8,14 @@
 <row class="row">
     <div class="col-md-3 well">
         <div style="min-width:200px; max-width:250px;">
-            @Html.Action("BuilderPartial")
+            @Html.Action("BuilderPartial", new { surveyNumber = ViewBag.SurveyNumber })
         </div>
     </div>
     <div class="col-md-9 well">
-        <div class="@ViewBag.QEditorContainerClass">
+        <div id="@ViewBag.QEditorContainerClass">
             <h1>Add question from the builder...</h1>
-            <div id="displayLoading" style="display: none">
-                Pesho
-                <img src="../../Content/Images/loading.gif" alt="" />
+            <div id="displayLoading" style="display: none; text-align: center;">
+                <img  src="../../Content/Images/loading.gif" alt="loading" />
             </div>
         </div>
     </div>

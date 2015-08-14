@@ -42,26 +42,39 @@ namespace LightSurvey.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult CreateNewSurvey(string SurveyName)
         {
+            if (SurveyName == null || SurveyName.Length < 1 || SurveyName.Length > 50)
+            {
+                return RedirectToAction("Index");
+            }
+
             //TODO: replace with autorized user and maybe remove this.users
             ApplicationUser user = this.users.All().First();
+            Survey survey = new Survey
+            {
+                Owner = user,
+                //TODD: be sure number is unique
+                SurveyNumber = RandomGenerator.RandomAlphaNumericSeq(25),
+                Title = SurveyName
+            };
 
             ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
-            ViewBag.SurveyName = SurveyName;
+            ViewBag.SurveyName = survey.Title;
+            ViewBag.SurveyNumber = survey.SurveyNumber;
 
             return View();
         }
 
         public ActionResult SRQuestionEditorPartial()
         {
-            var isAjax = Request.IsAjaxRequest();
             Thread.Sleep(500);
-            return Content("_SRQuestionEditorPartial");
+            return PartialView("_SRQuestionEditorPartial");
         }
 
         [ChildActionOnly]
-        public ActionResult BuilderPartial()
+        public ActionResult BuilderPartial(string surveyNumber)
         {
             ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
+            ViewBag.SurveyNumber = surveyNumber;
             return PartialView("_BuilderPartial");
         }
     }

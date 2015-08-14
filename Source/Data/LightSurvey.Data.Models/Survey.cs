@@ -5,6 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using LightSurvey.Data.Common.Models;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Survey : AuditInfo, IDeletableEntity
     {
@@ -29,6 +30,7 @@
 
         [Required]
         [StringLength(25)]
+        [Index]
         public string SurveyNumber { get; set; }
 
         public bool IsOpen { get; set; }

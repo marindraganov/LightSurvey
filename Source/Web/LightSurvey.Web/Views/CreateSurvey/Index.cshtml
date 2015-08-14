@@ -18,7 +18,8 @@
                 <div>
                     @Html.Label("SurveyName")
                     <br />
-                    @Html.TextBox("SurveyName")
+                    @Html.TextBox("SurveyName", null, new { minLength = "1",maxLength = "50", required = "true" })
+                    <div>(1 - 50 symbols)</div>
                 </div>
                 <div class="btn">
                     <input type="submit" value="Create ->" class="btn btn-success" />
@@ -41,7 +42,7 @@
             <div class="form-group">
                 <div>
                     @Html.Label("ExistingSurveyName")<br />
-                    @Html.DropDownList("ExistingSurveyName", (IEnumerable<SelectListItem>)ViewBag.items, "Select survey", new { @class = "form-control" })
+                    @Html.DropDownList("ExistingSurveyName", (IEnumerable<SelectListItem>)ViewBag.items, "Select survey", new { @class = "form-control", required = "true" })
                 </div>
                 <div class="btn">
                     <input type="submit" value="Copy and edit ->" class="btn btn-success" />
