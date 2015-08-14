@@ -90,6 +90,16 @@
 
             if (imageForDel != null)
             {
+                string imageSliderDir = "Content/Slider/";
+                string path = AppDomain.CurrentDomain.BaseDirectory + imageSliderDir;
+                string filename = Path.GetFileName(imageForDel.LocalPath);
+                string fileURI = Path.Combine(path, filename);
+
+                if (System.IO.File.Exists(fileURI))
+                {
+                    System.IO.File.Delete(fileURI);
+                }
+
                 this.images.Delete(Id);
                 this.images.SaveChanges();
             }
@@ -116,7 +126,7 @@
         public ActionResult Edit(int Id, String AltName)
         {
             var image = this.images.All().Where(m => m.Id == Id).Select(m => m).First();
-
+            
             if (image != null)
             {
                 image.AltName = AltName;

@@ -51,7 +51,7 @@
             </td>
             <td>
                 @Html.ActionLink("Edit alt", "Edit", new { id = item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Delete image?')" })
             </td>
         </tr>
     }

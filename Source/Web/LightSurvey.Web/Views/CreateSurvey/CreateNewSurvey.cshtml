@@ -1,10 +1,24 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "CreateNewSurvey";
 }
 
 <h3>Survey Name: @ViewBag.SurveyName</h3>
-
+<div class="row">
+    <div class="col-md-1">
+        <h4>Questions: </h4>
+    </div>
+    <div class="col-md-11">
+        <nav>
+            <ul class="pagination">
+                <li class="active"><a href="#">Q1</a></li>
+                <li><a href="#">Q2</a></li>
+                <li><a href="#">Q3</a></li>
+                <li><a href="#">Q4</a></li>
+                <li><a href="#">AddNew</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
 <row class="row">
     <div class="col-md-3 well">
         <div style="min-width:200px; max-width:250px;">
@@ -15,7 +29,7 @@
         <div id="@ViewBag.QEditorContainerClass">
             <h1>Add question from the builder...</h1>
             <div id="displayLoading" style="display: none; text-align: center;">
-                <img  src="../../Content/Images/loading.gif" alt="loading" />
+                <img src="../../Content/Images/loading.gif" alt="loading" />
             </div>
         </div>
     </div>
