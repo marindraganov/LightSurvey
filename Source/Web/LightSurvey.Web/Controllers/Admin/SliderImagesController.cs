@@ -16,6 +16,7 @@
 
     public class SliderImagesController : Controller
     {
+        private const string imageSliderDir = "Content/Slider/";
         private IRepository<SliderImage> images;
 
         public SliderImagesController(IRepository<SliderImage> images)
@@ -47,10 +48,7 @@
 
                 if (fileTypes.Contains(imageFile.ContentType.ToLower()))
                 {
-                    string imageSliderDir = "Content/Slider/";
-                    string path = AppDomain.CurrentDomain.BaseDirectory + imageSliderDir;
-                    string filename = Path.GetFileName(imageFile.FileName);
-                    string fileURI = Path.Combine(path, filename);
+                    string fileURI = SliderLocalURIFromPath(imageFile.FileName);
 
                     if(System.IO.File.Exists(fileURI))
                     {
@@ -90,10 +88,7 @@
 
             if (imageForDel != null)
             {
-                string imageSliderDir = "Content/Slider/";
-                string path = AppDomain.CurrentDomain.BaseDirectory + imageSliderDir;
-                string filename = Path.GetFileName(imageForDel.LocalPath);
-                string fileURI = Path.Combine(path, filename);
+                string fileURI = SliderLocalURIFromPath(imageForDel.LocalPath);
 
                 if (System.IO.File.Exists(fileURI))
                 {
@@ -134,6 +129,15 @@
             }
 
             return RedirectToAction("Index");
+        }
+
+        private static string SliderLocalURIFromPath(string path)
+        {
+            string domainPath = AppDomain.CurrentDomain.BaseDirectory + imageSliderDir;
+            string filename = Path.GetFileName(path);
+            string fileURI = Path.Combine(domainPath, filename);
+
+            return fileURI;
         }
     }
 }
