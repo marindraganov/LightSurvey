@@ -70,6 +70,6 @@ namespace LightSurvey.Web.App_Start
                 .To(typeof(DeletableEntityRepository<>));
 
             kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
-        }        
+        }       
     }
 }

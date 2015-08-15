@@ -5,7 +5,7 @@
         LoadingElementId = "displayLoading",
         HttpMethod = "GET",
         InsertionMode = InsertionMode.Replace,
-        AllowCache = true
+        AllowCache = false //TODO: have to be true after testing
     };
 
     ViewBag.LinkClass = "btn btn-lg btn-block  btn-default";
@@ -14,11 +14,11 @@
 <div class="panel panel-default text-center">
     <div class="panel-heading">
         <h4>Builder</h4>
-        <div>@ViewBag.SurveyNumber</div>
     </div>
     <ul class="list-group">
         <li class="list-group-item">
-            @Ajax.ActionLink("SingleResponse", "SRQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+            @Ajax.ActionLink("SingleResponse", "SRQuestionEditorPartial", "Questions",
+            new { surveyNumber = @ViewBag.SurveyNumber }, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
             @Ajax.ActionLink("MultipleChoice", "MCQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
@@ -30,4 +30,5 @@
             @Ajax.ActionLink("DateTime", "DTQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
     </ul>
+
 </div>
