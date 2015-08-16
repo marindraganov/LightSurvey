@@ -199,6 +199,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Admin\SliderImagesController.cs" />
+    <Compile Include="Controllers\BaseControllers.cs" />
     <Compile Include="Controllers\CreateSurveyController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -296,7 +297,7 @@
     <Content Include="Views\SliderImages\AddImage.cshtml" />
     <Content Include="Views\SliderImages\Edit.cshtml" />
     <Content Include="Views\CreateSurvey\Index.cshtml" />
-    <Content Include="Views\CreateSurvey\CreateNewSurvey.cshtml" />
+    <Content Include="Views\CreateSurvey\EditSurvey.cshtml" />
     <Content Include="Views\CreateSurvey\_BuilderPartial.cshtml" />
     <Content Include="Views\Questions\_SRQuestionEditorPartial.cshtml" />
   </ItemGroup>

@@ -7,7 +7,7 @@
     using LightSurvey.Data.Common.Models;
     using System.ComponentModel.DataAnnotations.Schema;
 
-    public class Survey : AuditInfo, IDeletableEntity
+    public class Survey : IAuditInfo, IDeletableEntity
     {
         private ICollection<Question> questions;
         private ICollection<Respondent> respondents;
@@ -25,18 +25,19 @@
         [StringLength(50), MinLength(1)]
         public string Title { get; set; }
 
-        [Required]
-        public ApplicationUser Owner { get; set; }
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+
+        public virtual User User { get; set; }
 
         [Required]
-        [StringLength(25)]
-        [Index]
+        //[StringLength(25)]
         public string SurveyNumber { get; set; }
 
         public bool IsOpen { get; set; }
 
-        public virtual ICollection<Question> Questions 
-        { 
+        public virtual ICollection<Question> Questions
+        {
             get
             {
                 return this.questions;
@@ -47,8 +48,8 @@
             }
         }
 
-        public virtual ICollection<Respondent> Respondents 
-        { 
+        public virtual ICollection<Respondent> Respondents
+        {
             get
             {
                 return this.respondents;
@@ -62,5 +63,9 @@
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+        public DateTime CreatedOn { get; set; }
+        public bool PreserveCreatedOn { get; set; }
+
+        public DateTime? ModifiedOn { get; set; }
     }
 }

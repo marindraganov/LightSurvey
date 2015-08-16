@@ -37,12 +37,13 @@
     </div>
     <div class="existing-survey-form" style="display: none">
         <hr />
-        @using (Html.BeginForm("CopyAndEditSurvey", "CreateSurvey", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("EditSurvey", "CreateSurvey", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
+            @Html.AntiForgeryToken()
             <div class="form-group">
                 <div>
-                    @Html.Label("ExistingSurveyName")<br />
-                    @Html.DropDownList("ExistingSurveyName", (IEnumerable<SelectListItem>)ViewBag.items, "Select survey", new { @class = "form-control", required = "true" })
+                    @Html.Label("Your surveys:")<br />
+                    @Html.DropDownList("ExistingSurveyNumber", (IEnumerable<SelectListItem>)ViewBag.items, "Select survey", new { @class = "form-control", required = "true" })
                 </div>
                 <div class="btn">
                     <input type="submit" value="Copy and edit ->" class="btn btn-success" />

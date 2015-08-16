@@ -10,7 +10,7 @@
     using LightSurvey.Data.Migrations;
     using LightSurvey.Data.Common.Models;
 
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
@@ -18,12 +18,16 @@
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration> ());
         }
 
+        public IDbSet<SliderImage> SliderImages { get; set; }
+        public IDbSet<Survey> Surveys { get; set; }
+        public IDbSet<Question> Questions { get; set; }
+        public IDbSet<Answer> Answers { get; set; }
+        public IDbSet<Respondent> Respondents { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
-
-        public IDbSet<SliderImage> SliderImages { get; set; }
 
         public override int SaveChanges()
         {

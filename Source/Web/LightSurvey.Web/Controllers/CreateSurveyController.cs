@@ -1,41 +1,47 @@
-﻿using LightSurvey.Data.Common.Repository;
-using LightSurvey.Data.Models;
-using LightSurvey.Web.Infrastructure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Web;
-using System.Web.Mvc;
-
-namespace LightSurvey.Web.Controllers
+﻿namespace LightSurvey.Web.Controllers
 {
+    using System.Collections.Generic;
+    using System.Web.Mvc;
+    using System.Linq;
+
+    using Microsoft.AspNet.Identity;
+
+    using LightSurvey.Data.Common.Repository;
+    using LightSurvey.Data.Models;
+    using LightSurvey.Web.Infrastructure;
+    using LikeIt.Web.Controllers;
+
     public class CreateSurveyController : Controller
     {
-        private IRepository<ApplicationUser> users;
+        private IRepository<User> users;
+        private IRepository<Survey> surveys;
 
-        public CreateSurveyController(IRepository<ApplicationUser> users)
+        public CreateSurveyController(
+            IRepository<User> users,
+            IRepository<Survey> surveys)
         {
             this.users = users;
+            this.surveys = surveys;
         }
 
         // GET: CreateSurvey
         public ActionResult Index()
         {
-            List<SelectListItem> surveyNames = new List<SelectListItem>
+            List<SelectListItem> surveyTitles = new List<SelectListItem>();
+            var existingSurveyTitles = this.surveys.All().Select(s => new { number = s.SurveyNumber, title = s.Title});
+
+            if (existingSurveyTitles != null)
             {
-                new SelectListItem{
-                    Text = "MySurvey1"
-                },
-                new SelectListItem{
-                    Text = "MySurvey2"
+                foreach (var item in existingSurveyTitles)
+                {
+                    surveyTitles.Add(new SelectListItem { Value = item.number, Text = item.title });
                 }
-            };
+            }
 
             ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
-            ViewBag.items = surveyNames;
+            ViewBag.items = surveyTitles;
 
-            return View();
+            return this.View();
         }
 
         [HttpPost]
@@ -47,26 +53,50 @@ namespace LightSurvey.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            //TODO: replace with autorized user and maybe remove this.users
-            ApplicationUser user = this.users.All().First();
             Survey survey = new Survey
             {
-                Owner = user,
+                UserId = this.User.Identity.GetUserId(),
                 //TODD: be sure number is unique
                 SurveyNumber = RandomGenerator.RandomAlphaNumericSeq(25),
                 Title = SurveyName
             };
 
+            this.surveys.Add(survey);
+            this.surveys.SaveChanges();
+            this.surveys.Detach(survey);
+            
             ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
             ViewBag.SurveyName = survey.Title;
             ViewBag.SurveyNumber = survey.SurveyNumber;
 
-            return View();
+            return View("EditSurvey");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditSurvey(string ExistingSurveyNumber)
+        {
+            if (ExistingSurveyNumber == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            Survey survey = this.surveys.All().Where(s => s.SurveyNumber == ExistingSurveyNumber).First();
+
+            if (survey != null)
+            {
+                ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
+                ViewBag.SurveyName = survey.Title;
+                ViewBag.SurveyNumber = survey.SurveyNumber;
+
+                return View("EditSurvey");
+            }
+
+            return Content("You are trying to edin nonexistent survey!");
         }
 
         public ActionResult SRQuestionEditorPartial()
         {
-            Thread.Sleep(500);
             return PartialView("_SRQuestionEditorPartial");
         }
 

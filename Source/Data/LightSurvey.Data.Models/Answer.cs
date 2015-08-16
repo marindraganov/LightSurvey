@@ -13,7 +13,5 @@ namespace LightSurvey.Data.Models
         public string SurveyRespondentId { get; set; }
 
         public string AnswerValue { get; set; }
-
-        public Question Question { get; set; }
     }
 }

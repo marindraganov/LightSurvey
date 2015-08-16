@@ -1,5 +1,6 @@
 ﻿namespace LightSurvey.Data.Models
 {
+    using LightSurvey.Data.Common.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@
         SingleTextBox
     }
 
-    public class Question
+    public class Question : AuditInfo, IDeletableEntity
     {
         public Question()
         {
@@ -31,5 +32,9 @@
         public virtual ICollection<Answer> Answers { get; set; }
 
         public bool AnswerIsRequired { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+        public DateTime? DeletedOn { get; set; }
     }
 }
