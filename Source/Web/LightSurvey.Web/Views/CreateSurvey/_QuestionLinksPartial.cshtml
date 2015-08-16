@@ -1,6 +1,16 @@
 ﻿@model LightSurvey.Web.ViewModels.Questions.QuestionLinksViewModel
 
 @{
+    var ajaxOptions = new AjaxOptions
+    {
+        UpdateTargetId = "q-editor-container",
+        LoadingElementId = "displayLoading",
+        HttpMethod = "GET",
+        InsertionMode = InsertionMode.Replace,
+        OnBegin = "removeActive();",
+        OnComplete = "setActive();"
+    };
+
     string active = "";
 }
 
@@ -10,18 +20,37 @@
     </div>
     <div class="col-md-11">
         <nav>
-            <ul class="pagination">
+            <ul class="pagination question-links">
                 @foreach (var item in Model.QuestionNames)
                 {
                     active = (item == Model.CurrentQuestion) ? "active" : "";
                     <li class="@active">
-                        <a href=" #">@item</a>
+                        @Ajax.ActionLink(item, "SRQuestionViewPartial", "Questions",
+                            new { surveyNumber = Model.SurveyNumber, questionName = item }, ajaxOptions, new { onclick="getElement(this)"})
                     </li>
                 }
 
                 @{active = (Model.CurrentQuestion == string.Empty) ? "active" : "";}
                 <li class="@active"><a href="#">AddNew</a></li>
-        </ul>
+            </ul>
         </nav>
     </div>
 </div>
+
+
+<script>
+    var clickedElement;
+
+    var removeActive = function removeActive() {
+        $('.question-links .active').removeClass('active');
+    };
+
+    var setActive = function setActive() {
+        $(clickedElement).parent().addClass('active');
+    };
+
+    function getElement(element)
+    {
+        clickedElement = element;
+    }
+</script>

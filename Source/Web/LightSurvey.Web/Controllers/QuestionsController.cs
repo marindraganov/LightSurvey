@@ -23,6 +23,22 @@
         }
 
         [HttpGet]
+        public ActionResult SRQuestionViewPartial(string surveyNumber, string questionName)
+        {
+            var question = this.questions.All().Where(q =>  
+            q.Name == questionName && q.SurveyNumber == surveyNumber).First();
+
+            if (question != null)
+            {
+                var model = AutoMapper.Mapper.Map<SRQuestionViewModel>(question);
+
+                return this.PartialView("_SRQuestionViewPartial", model);
+            }
+
+            return Content("You are trying to get nonexistent question!");
+        }
+
+        [HttpGet]
         public ActionResult SRQuestionEditorPartial(string surveyNumber)
         {
             var survey = this.surveys.All().Where(s => s.SurveyNumber == surveyNumber).First();
@@ -46,7 +62,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult SRQuestionEditorPartial(SRQuestionInputModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 SRQuestion question = AutoMapper.Mapper.Map<SRQuestion>(model);
                 var survey = this.surveys.All().Where(s => s.SurveyNumber == question.SurveyNumber).First();
