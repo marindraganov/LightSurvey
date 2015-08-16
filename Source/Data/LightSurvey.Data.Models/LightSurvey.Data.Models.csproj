@@ -64,6 +64,7 @@
     <Compile Include="Question.cs" />
     <Compile Include="Respondent.cs" />
     <Compile Include="SliderImage.cs" />
+    <Compile Include="SRQuestion.cs" />
     <Compile Include="Survey.cs" />
   </ItemGroup>
   <ItemGroup>

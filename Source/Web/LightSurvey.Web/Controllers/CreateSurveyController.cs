@@ -10,6 +10,7 @@
     using LightSurvey.Data.Models;
     using LightSurvey.Web.Infrastructure;
     using LikeIt.Web.Controllers;
+    using LightSurvey.Web.ViewModels.Questions;
 
     public class CreateSurveyController : Controller
     {
@@ -38,7 +39,7 @@
                 }
             }
 
-            ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
+            ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
             ViewBag.items = surveyTitles;
 
             return this.View();
@@ -65,7 +66,7 @@
             this.surveys.SaveChanges();
             this.surveys.Detach(survey);
             
-            ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
+            ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
             ViewBag.SurveyName = survey.Title;
             ViewBag.SurveyNumber = survey.SurveyNumber;
 
@@ -85,7 +86,7 @@
 
             if (survey != null)
             {
-                ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
+                ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
                 ViewBag.SurveyName = survey.Title;
                 ViewBag.SurveyNumber = survey.SurveyNumber;
 
@@ -100,10 +101,32 @@
             return PartialView("_SRQuestionEditorPartial");
         }
 
+        //TODO: Autorized
+        public ActionResult QuestionLinksPartial(string surveyNumber)
+        {
+            var survey = this.surveys.All().Where(s => s.SurveyNumber == surveyNumber).First();
+            if (survey != null)
+            {
+                var questionNames = survey.Questions.Select(q => q.Name).ToList();
+                ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
+
+                QuestionLinksViewModel model = new QuestionLinksViewModel
+                {
+                    SurveyNumber = surveyNumber,
+                    QuestionNames = questionNames,
+                    CurrentQuestion = ""
+                };
+
+                return PartialView("_QuestionLinksPartial", model);
+            }
+
+            return Content("You are trying to get question list of nonexistent survey!");
+        }
+
         [ChildActionOnly]
         public ActionResult BuilderPartial(string surveyNumber)
         {
-            ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerClass;
+            ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
             ViewBag.SurveyNumber = surveyNumber;
             return PartialView("_BuilderPartial");
         }

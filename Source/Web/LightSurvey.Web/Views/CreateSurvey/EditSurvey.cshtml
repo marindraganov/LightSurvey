@@ -3,21 +3,8 @@
 }
 
 <h3>Survey Name: @ViewBag.SurveyName</h3>
-<div class="row">
-    <div class="col-md-1">
-        <h4>Questions: </h4>
-    </div>
-    <div class="col-md-11">
-        <nav>
-            <ul class="pagination">
-                <li class="active"><a href="#">Q1</a></li>
-                <li><a href="#">Q2</a></li>
-                <li><a href="#">Q3</a></li>
-                <li><a href="#">Q4</a></li>
-                <li><a href="#">AddNew</a></li>
-            </ul>
-        </nav>
-    </div>
+<div id="questionsList">
+    @Html.Action("QuestionLinksPartial", new { surveyNumber = ViewBag.SurveyNumber })
 </div>
 <row class="row">
     <div class="col-md-3 well">
@@ -34,3 +21,10 @@
         </div>
     </div>
 </row>
+
+<script>
+        function reloadQuestionsList() {
+            $("#questionsList").html("Loading...");
+            $("#questionsList").load("/CreateSurvey/QuestionLinksPartial", { "SurveyNumber": "@ViewBag.SurveyNumber" });
+        }
+</script>

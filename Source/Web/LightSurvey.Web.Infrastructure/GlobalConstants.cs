@@ -3,6 +3,6 @@
     public static class GlobalConstants
     {
         //class for ajax
-        public const string QEditorContainerClass = "q-editor-container";
+        public const string QEditorContainerId = "q-editor-container";
     }
 }

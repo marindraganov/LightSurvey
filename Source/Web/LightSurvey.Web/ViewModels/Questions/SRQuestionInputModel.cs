@@ -1,20 +1,20 @@
-﻿using System;
+﻿using LightSurvey.Data.Models;
+using LightSurvey.Web.Infrastructure.Mapping;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web;
 
 namespace LightSurvey.Web.ViewModels.Questions
 {
-    public class SRQuestionInputModel
+    public class SRQuestionInputModel : IMapFrom<SRQuestion>
     {
         public SRQuestionInputModel()
         {
-            this.Answers = new string[3];
+            this.Rows = new string[3];
         }
 
         [Required]
-        [StringLength(25)]
         public string SurveyNumber { get; set; }
 
         [Required]
@@ -24,6 +24,6 @@ namespace LightSurvey.Web.ViewModels.Questions
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
-        public string[] Answers { get; set; }
+        public ICollection<string> Rows { get; set; }
     }
 }

@@ -8,6 +8,9 @@
     using LightSurvey.Web.ViewModels.Questions;
     using LightSurvey.Data.Models;
 
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+
     public class QuestionsController : Controller
     {
         private IDeletableEntityRepository<Question> questions;
@@ -43,7 +46,15 @@
         [ValidateAntiForgeryToken]
         public ActionResult SRQuestionEditorPartial(SRQuestionInputModel model)
         {
-            return Content("save q");
+            if(ModelState.IsValid)
+            {
+                SRQuestion question = AutoMapper.Mapper.Map<SRQuestion>(model);
+                var survey = this.surveys.All().Where(s => s.SurveyNumber == question.SurveyNumber).First();
+                survey.Questions.Add(question);
+                this.surveys.SaveChanges();
+            }
+
+            return Content("<h3>The question was saved. Add next question...</h3>");
         }
     }
 }

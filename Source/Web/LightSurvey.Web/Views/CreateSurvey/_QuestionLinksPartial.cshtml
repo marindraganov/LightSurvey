@@ -1,0 +1,27 @@
+﻿@model LightSurvey.Web.ViewModels.Questions.QuestionLinksViewModel
+
+@{
+    string active = "";
+}
+
+<div class="row">
+    <div class="col-md-1">
+        <h4>Questions: </h4>
+    </div>
+    <div class="col-md-11">
+        <nav>
+            <ul class="pagination">
+                @foreach (var item in Model.QuestionNames)
+                {
+                    active = (item == Model.CurrentQuestion) ? "active" : "";
+                    <li class="@active">
+                        <a href=" #">@item</a>
+                    </li>
+                }
+
+                @{active = (Model.CurrentQuestion == string.Empty) ? "active" : "";}
+                <li class="@active"><a href="#">AddNew</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
