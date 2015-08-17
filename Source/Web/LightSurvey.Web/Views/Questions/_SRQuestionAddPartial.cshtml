@@ -1,0 +1,59 @@
+﻿@model LightSurvey.Web.ViewModels.Questions.SRQuestionInputModel
+
+@{
+    ViewBag.Title = "SRQAdd";
+
+    var ajaxOpt = new AjaxOptions
+    {
+        UpdateTargetId = "q-editor-container",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnBegin = "setAddNewActive",
+        OnSuccess = "reloadQuestionsList"
+    };
+}
+
+@using (Ajax.BeginForm("SRQuestionAddPartial", "Questions", ajaxOpt, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    @Html.HiddenFor(m => m.SurveyNumber)
+    @Html.HiddenFor(m => m.Name)
+    <div class="form-group v-align-center">
+        <div class="col-md-1">
+            <h4>@Model.Name.</h4>
+        </div>
+        <div class="col-md-11">
+            @Html.EditorFor(model => model.Text,
+                new { htmlAttributes = new { @class = "form-control question-text-input", required = "", placeholder = "Question text..." } })
+            @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <hr />
+    <div class="answers-container">
+        @foreach (var item in Model.Rows)
+        {
+            <div class="form-group v-align-center">
+                <div class="col-md-1">
+                    <input class="radio" type="radio" disabled />
+                </div>
+                <div class="col-md-11">
+                    <input type="text" name="Rows" class = "form-control answer-text-input" required/>
+                    <button type="button" class="btn btn-success btn-xs" style="font-size:1.5em;" aria-label="Add">
+                        <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs" style="font-size:1.5em;" aria-label="Remove">
+                        <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+    <br />
+    <div class="form-group text-center">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}
+

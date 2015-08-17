@@ -213,6 +213,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\Questions\QuestionLinksViewModel.cs" />
+    <Compile Include="ViewModels\Questions\SRQuestionEditModel.cs" />
     <Compile Include="ViewModels\Questions\SRQuestionInputModel.cs" />
     <Compile Include="ViewModels\Questions\SRQuestionViewModel.cs" />
     <Compile Include="ViewModels\SliderImage\EditSliderImageViewModel.cs" />
@@ -301,9 +302,10 @@
     <Content Include="Views\CreateSurvey\Index.cshtml" />
     <Content Include="Views\CreateSurvey\EditSurvey.cshtml" />
     <Content Include="Views\CreateSurvey\_BuilderPartial.cshtml" />
-    <Content Include="Views\Questions\_SRQuestionEditorPartial.cshtml" />
+    <Content Include="Views\Questions\_SRQuestionAddPartial.cshtml" />
     <Content Include="Views\CreateSurvey\_QuestionLinksPartial.cshtml" />
     <Content Include="Views\Questions\_SRQuestionViewPartial.cshtml" />
+    <Content Include="Views\Questions\_SRQuestionEditPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

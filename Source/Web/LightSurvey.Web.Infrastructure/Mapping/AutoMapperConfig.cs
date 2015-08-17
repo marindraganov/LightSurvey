@@ -7,6 +7,8 @@
 
     using AutoMapper;
 
+    using LightSurvey.Data.Models;
+
     public class AutoMapperConfig
     {
         private Assembly assembly;
@@ -23,6 +25,8 @@
             LoadStandardMappings(types);
 
             LoadCustomMappings(types);
+
+            LoadStringDataMapping();
         }
 
         private static void LoadStandardMappings(IEnumerable<Type> types)
@@ -52,6 +56,13 @@
             {
                 map.CreateMappings(Mapper.Configuration);
             }
+        }
+
+        //TODO: extract in LightSurvey.Web assembly
+        private static void LoadStringDataMapping()
+        {
+            Mapper.CreateMap<string, StringData>().ForMember(dest => dest.Data, opts => opts.MapFrom(src => src));
+            Mapper.CreateMap<StringData, string>().ConvertUsing(source => source.Data ?? string.Empty);
         }
     }
 }

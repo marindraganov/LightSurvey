@@ -5,7 +5,8 @@
         LoadingElementId = "displayLoading",
         HttpMethod = "GET",
         InsertionMode = InsertionMode.Replace,
-        AllowCache = false //TODO: have to be true after testing
+        AllowCache = false, //TODO: have to be true after testing,
+        OnBegin = "setAddNewActive"
     };
 
     ViewBag.LinkClass = "btn btn-lg btn-block  btn-default";
@@ -17,17 +18,17 @@
     </div>
     <ul class="list-group">
         <li class="list-group-item">
-            @Ajax.ActionLink("SingleResponse", "SRQuestionEditorPartial", "Questions",
+            @Ajax.ActionLink("SingleResponse", "SRQuestionAddPartial", "Questions",
             new { surveyNumber = @ViewBag.SurveyNumber }, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
-            @Ajax.ActionLink("MultipleChoice", "MCQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+            @Ajax.ActionLink("MultipleChoice", "MCQuestionAddPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
-            @Ajax.ActionLink("DropDownList", "DDLQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+            @Ajax.ActionLink("DropDownList", "DDLQuestionAddPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
-            @Ajax.ActionLink("DateTime", "DTQuestionEditorPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+            @Ajax.ActionLink("DateTime", "DTQuestionAddPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
     </ul>
 

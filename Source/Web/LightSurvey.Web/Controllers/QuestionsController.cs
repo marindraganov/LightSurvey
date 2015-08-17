@@ -39,7 +39,7 @@
         }
 
         [HttpGet]
-        public ActionResult SRQuestionEditorPartial(string surveyNumber)
+        public ActionResult SRQuestionAddPartial(string surveyNumber)
         {
             var survey = this.surveys.All().Where(s => s.SurveyNumber == surveyNumber).First();
 
@@ -52,25 +52,81 @@
                 model.Name = questionName;
                 model.SurveyNumber = surveyNumber;
 
-                return this.PartialView("_SRQuestionEditorPartial", model);
+                return this.PartialView("_SRQuestionAddPartial", model);
             }
 
-            return Content("You try to add question to unexisting survey!");
+            return Content("You are trying to add question to nonexistent survey!");
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SRQuestionEditorPartial(SRQuestionInputModel model)
+        public ActionResult SRQuestionAddPartial(SRQuestionInputModel model)
         {
-            if (ModelState.IsValid)
+            if (model != null && ModelState.IsValid)
             {
-                SRQuestion question = AutoMapper.Mapper.Map<SRQuestion>(model);
-                var survey = this.surveys.All().Where(s => s.SurveyNumber == question.SurveyNumber).First();
-                survey.Questions.Add(question);
-                this.surveys.SaveChanges();
+                var survey = this.surveys.All().Where(s => s.SurveyNumber == model.SurveyNumber).First();
+
+                //Add new question
+                if(survey != null)
+                {
+                    SRQuestion question = AutoMapper.Mapper.Map<SRQuestion>(model);
+                    survey.Questions.Add(question);
+                    this.surveys.SaveChanges();
+                }
+                else
+                {
+                    return Content("You are trying to add question to nonexistent survey!");
+                }
+            }
+            else
+            {
+                return PartialView("_SRQuestionAddPartial", model);
             }
 
             return Content("<h3>The question was saved. Add next question...</h3>");
+        }
+
+        [HttpGet]
+        public ActionResult SRQuestionEditPartial(string surveyNumber, string questionName)
+        {
+            var question = this.questions.All().Where(q => 
+                q.SurveyNumber == surveyNumber && 
+                q.Name == questionName).First();
+
+            if (question != null)
+            {
+                var model = AutoMapper.Mapper.Map<SRQuestionEditModel>(question);
+
+                return this.PartialView("_SRQuestionEditPartial", model);
+            }
+
+            return Content("You are trying to add question to nonexistent survey!");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SRQuestionEditPartial(SRQuestionEditModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                var question = this.questions.All().Where(q =>
+                q.SurveyNumber == model.SurveyNumber &&
+                q.Name == model.Name).First() as SRQuestion;
+
+                if (question != null)
+                {
+                    SRQuestion editedQuestion = AutoMapper.Mapper.Map<SRQuestion>(model);
+                    Mapper.Map<SRQuestionEditModel, SRQuestion>(model,question);
+
+                    this.questions.SaveChanges();
+                }
+                else
+                {
+                    return Content("You are trying to edit nonexistant!");
+                }
+            }
+
+            return SRQuestionViewPartial(model.SurveyNumber, model.Name);
         }
     }
 }

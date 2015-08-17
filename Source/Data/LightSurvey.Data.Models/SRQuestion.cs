@@ -8,15 +8,15 @@ namespace LightSurvey.Data.Models
 {
     public class SRQuestion : Question
     {
-        private ICollection<string> rows;
+        private ICollection<StringData> rows;
 
         public SRQuestion()
             : base()
         {
-            this.rows = new HashSet<string>();
+            this.rows = new HashSet<StringData>();
         }
 
-        public virtual ICollection<string> Rows
+        public virtual ICollection<StringData> Rows
         {
             get
             {

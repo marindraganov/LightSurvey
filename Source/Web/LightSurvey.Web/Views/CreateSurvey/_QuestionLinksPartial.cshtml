@@ -31,7 +31,7 @@
                 }
 
                 @{active = (Model.CurrentQuestion == string.Empty) ? "active" : "";}
-                <li class="@active"><a href="#">AddNew</a></li>
+                <li class="@active" id="addNewLink"><a href="#" onclick="addNewClicked()">AddNew</a></li>
             </ul>
         </nav>
     </div>
@@ -52,5 +52,17 @@
     function getElement(element)
     {
         clickedElement = element;
+    }
+
+    function setAddNewActive()
+    {
+        removeActive();
+        $('#addNewLink').addClass('active');
+    }
+
+    function addNewClicked()
+    {
+        setAddNewActive()
+        $('#q-editor-container').html('<h1>Add question from the builder...</h1>');
     }
 </script>
