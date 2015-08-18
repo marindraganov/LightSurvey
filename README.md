@@ -1,6 +1,7 @@
-# LightSurvey
-===
+LightSurvey
+======
 (this project is still a work in progress)
+
 **ASP.Net MVC** application for fast and easy survey building
 
 You can:
