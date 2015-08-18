@@ -1,11 +1,12 @@
 namespace LightSurvey.Data.Migrations
 {
-    using LightSurvey.Data.Common.Repository;
-    using LightSurvey.Data.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+
+    using LightSurvey.Data.Common.Repository;
+    using LightSurvey.Data.Models;
 
     internal sealed class Configuration : DbMigrationsConfiguration<LightSurvey.Data.ApplicationDbContext>
     {
@@ -13,6 +14,7 @@ namespace LightSurvey.Data.Migrations
         {
             this.AutomaticMigrationsEnabled = true;
             ContextKey = "LightSurvey.Data.ApplicationDbContext";
+
             //TODO: remove
             this.AutomaticMigrationDataLossAllowed = true;
         }

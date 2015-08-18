@@ -3,9 +3,9 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     using LightSurvey.Data.Common.Models;
-    using System.ComponentModel.DataAnnotations.Schema;
 
     public class Survey : IAuditInfo, IDeletableEntity
     {
@@ -31,7 +31,7 @@
         public virtual User User { get; set; }
 
         [Required]
-        //[StringLength(25)]
+        ////[StringLength(25)]
         public string SurveyNumber { get; set; }
 
         public bool IsOpen { get; set; }
@@ -42,6 +42,7 @@
             {
                 return this.questions;
             }
+
             set
             {
                 this.questions = value;
@@ -54,6 +55,7 @@
             {
                 return this.respondents;
             }
+
             set
             {
                 this.respondents = value;
@@ -63,7 +65,9 @@
         public bool IsDeleted { get; set; }
 
         public DateTime? DeletedOn { get; set; }
+
         public DateTime CreatedOn { get; set; }
+
         public bool PreserveCreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }

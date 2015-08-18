@@ -52,34 +52,34 @@
 
                     if(System.IO.File.Exists(fileURI))
                     {
-                        TempData["UploadMessage"] = "File with that name already exists";
-                        return Redirect("AddImage");
+                        this.TempData["UploadMessage"] = "File with that name already exists";
+                        return this.Redirect("AddImage");
                     }
                     else
                     {
                         imageFile.SaveAs(fileURI);
-                        images.Add(new SliderImage() 
+                        this.images.Add(new SliderImage() 
                         { 
                             AltName = AltName, 
                             LocalPath = "../../" + imageSliderDir + imageFile.FileName
                         });
 
-                        images.SaveChanges();
+                        this.images.SaveChanges();
                     }
 
-                    TempData["UploadMessage"] = "Image added successfully!";
+                    this.TempData["UploadMessage"] = "Image added successfully!";
                 }
                 else
                 {
-                    TempData["UploadMessage"] = "This file isn't image!";
+                    this.TempData["UploadMessage"] = "This file isn't image!";
                 }
             }
             else
             {
-                TempData["UploadMessage"] = "No file detected";
+                this.TempData["UploadMessage"] = "No file detected";
             }
 
-            return Redirect("AddImage");
+            return this.Redirect("AddImage");
         }
 
         public ActionResult Delete(int Id)

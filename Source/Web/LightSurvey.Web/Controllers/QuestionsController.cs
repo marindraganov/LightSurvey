@@ -1,15 +1,15 @@
 ﻿namespace LightSurvey.Web.Controllers
 {
+    using System.Linq;
     using System.Web;
     using System.Web.Mvc;
-    using System.Linq;
+
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
 
     using LightSurvey.Data.Common.Repository;
     using LightSurvey.Web.ViewModels.Questions;
     using LightSurvey.Data.Models;
-
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
 
     public class QuestionsController : Controller
     {
@@ -35,7 +35,7 @@
                 return this.PartialView("_SRQuestionViewPartial", model);
             }
 
-            return Content("You are trying to get nonexistent question!");
+            return this.Content("You are trying to get nonexistent question!");
         }
 
         [HttpGet]
@@ -55,7 +55,7 @@
                 return this.PartialView("_SRQuestionAddPartial", model);
             }
 
-            return Content("You are trying to add question to nonexistent survey!");
+            return this.Content("You are trying to add question to nonexistent survey!");
         }
 
         [HttpPost]
@@ -75,15 +75,15 @@
                 }
                 else
                 {
-                    return Content("You are trying to add question to nonexistent survey!");
+                    return this.Content("You are trying to add question to nonexistent survey!");
                 }
             }
             else
             {
-                return PartialView("_SRQuestionAddPartial", model);
+                return this.PartialView("_SRQuestionAddPartial", model);
             }
 
-            return Content("<h3>The question was saved. Add next question...</h3>");
+            return this.Content("<h3>The question was saved. Add next question...</h3>");
         }
 
         [HttpGet]
@@ -100,7 +100,7 @@
                 return this.PartialView("_SRQuestionEditPartial", model);
             }
 
-            return Content("You are trying to add question to nonexistent survey!");
+            return this.Content("You are trying to add question to nonexistent survey!");
         }
 
         [HttpPost]
@@ -122,11 +122,11 @@
                 }
                 else
                 {
-                    return Content("You are trying to edit nonexistant!");
+                    return this.Content("You are trying to edit nonexistant!");
                 }
             }
 
-            return SRQuestionViewPartial(model.SurveyNumber, model.Name);
+            return this.SRQuestionViewPartial(model.SurveyNumber, model.Name);
         }
     }
 }

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LightSurvey.Web.Infrastructure
+﻿namespace LightSurvey.Web.Infrastructure
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     public static class RandomGenerator
     {
         

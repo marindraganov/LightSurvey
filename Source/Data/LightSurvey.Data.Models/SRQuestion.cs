@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LightSurvey.Data.Models
+﻿namespace LightSurvey.Data.Models
 {
+    using System.Collections.Generic;
+
     public class SRQuestion : Question
     {
         private ICollection<StringData> rows;
@@ -22,6 +18,7 @@ namespace LightSurvey.Data.Models
             {
                 return this.rows;
             }
+
             set
             {
                 this.rows = value;

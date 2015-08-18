@@ -4,13 +4,13 @@
 namespace LightSurvey.Web.App_Start
 {
     using System;
+    using System.Data.Entity;
     using System.Web;
-
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 
     using Ninject;
     using Ninject.Web.Common;
-    using System.Data.Entity;
+    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+
     using LightSurvey.Data;
     using LightSurvey.Data.Common.Repository;
 

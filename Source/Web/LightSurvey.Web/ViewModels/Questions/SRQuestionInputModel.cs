@@ -1,12 +1,13 @@
-﻿using LightSurvey.Data.Models;
-using LightSurvey.Web.Infrastructure.Mapping;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-
-namespace LightSurvey.Web.ViewModels.Questions
+﻿namespace LightSurvey.Web.ViewModels.Questions
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+
+    using LightSurvey.Data.Models;
+    using LightSurvey.Web.Infrastructure.Mapping;
+
     public class SRQuestionInputModel : IMapFrom<SRQuestion>
     {
         public SRQuestionInputModel()

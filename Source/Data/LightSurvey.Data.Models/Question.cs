@@ -1,10 +1,11 @@
 ﻿namespace LightSurvey.Data.Models
 {
-    using LightSurvey.Data.Common.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+
+    using LightSurvey.Data.Common.Models;
 
     public enum QuestionType
     {
@@ -18,7 +19,7 @@
 
         public Question()
         {
-            this.answers= new HashSet<Answer>();
+            this.answers = new HashSet<Answer>();
         }
 
         public int Id { get; set; }
@@ -40,6 +41,7 @@
             {
                 return this.answers;
             }
+
             set
             {
                 this.answers = value;

@@ -2,6 +2,7 @@
 using Owin;
 
 [assembly: OwinStartupAttribute(typeof(LightSurvey.Web.Startup))]
+
 namespace LightSurvey.Web
 {
     public partial class Startup

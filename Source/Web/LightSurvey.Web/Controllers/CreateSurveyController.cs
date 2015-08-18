@@ -70,7 +70,7 @@
             ViewBag.SurveyName = survey.Title;
             ViewBag.SurveyNumber = survey.SurveyNumber;
 
-            return View("EditSurvey");
+            return this.View("EditSurvey");
         }
 
         [HttpPost]
@@ -79,18 +79,18 @@
         {
             if (ExistingSurveyNumber == null)
             {
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             Survey survey = this.surveys.All().Where(s => s.SurveyNumber == ExistingSurveyNumber).First();
 
             if (survey != null)
             {
-                ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
-                ViewBag.SurveyName = survey.Title;
-                ViewBag.SurveyNumber = survey.SurveyNumber;
+                this.ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
+                this.ViewBag.SurveyName = survey.Title;
+                this.ViewBag.SurveyNumber = survey.SurveyNumber;
 
-                return View("EditSurvey");
+                return this.View("EditSurvey");
             }
 
             return Content("You are trying to edin nonexistent survey!");
@@ -113,21 +113,21 @@
                 {
                     SurveyNumber = surveyNumber,
                     QuestionNames = questionNames,
-                    CurrentQuestion = ""
+                    CurrentQuestion = string.Empty
                 };
 
                 return PartialView("_QuestionLinksPartial", model);
             }
 
-            return Content("You are trying to get question list of nonexistent survey!");
+            return this.Content("You are trying to get question list of nonexistent survey!");
         }
 
         [ChildActionOnly]
         public ActionResult BuilderPartial(string surveyNumber)
         {
-            ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
-            ViewBag.SurveyNumber = surveyNumber;
-            return PartialView("_BuilderPartial");
+            this.ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
+            this.ViewBag.SurveyNumber = surveyNumber;
+            return this.PartialView("_BuilderPartial");
         }
     }
 }
