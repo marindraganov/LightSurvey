@@ -108,7 +108,6 @@
             if (survey != null)
             {
                 var questionNames = survey.Questions.Select(q => q.Name).ToList();
-                ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
 
                 QuestionLinksViewModel model = new QuestionLinksViewModel
                 {
