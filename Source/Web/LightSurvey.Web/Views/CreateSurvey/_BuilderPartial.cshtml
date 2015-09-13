@@ -18,8 +18,8 @@
     </div>
     <ul class="list-group">
         <li class="list-group-item">
-            @Ajax.ActionLink("SingleResponse", "SRQuestionAddPartial", "Questions",
-            new { surveyNumber = @ViewBag.SurveyNumber }, ajaxOptions, new { @class = ViewBag.LinkClass })
+            @Ajax.ActionLink("SingleResponse", "QuestionAddPartial", "Questions",
+            new { surveyNumber = @ViewBag.SurveyNumber , type = "SRQ"}, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
             @Ajax.ActionLink("MultipleChoice", "MCQuestionAddPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })

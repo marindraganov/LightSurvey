@@ -9,7 +9,10 @@
 
     public enum QuestionType
     {
+        SingleResponse,
         MultipleChoise,
+        DropDownList,
+        DateTime,
         SingleTextBox
     }
 

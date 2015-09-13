@@ -8,14 +8,8 @@
     using LightSurvey.Data.Models;
     using LightSurvey.Web.Infrastructure.Mapping;
 
-    public class SRQuestionViewModel : IMapFrom<SRQuestion>
+    public class SRQuestionViewModel : QuestionModel, IMapFrom<SRQuestion>
     {
-        [Required]
-        public string SurveyNumber { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
         [Required]
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
