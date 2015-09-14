@@ -47,27 +47,53 @@
             }
         }
 
-        private QuestionModel MapQuestionToViewModel(Question question)
+        [HttpGet]
+        public ActionResult QuestionEditPartial(string surveyNumber, string questionName)
         {
-            QuestionModel model;
+            var question = this.questions.All().Where(q =>
+                q.SurveyNumber == surveyNumber &&
+                q.Name == questionName).First();
 
-            switch (question.Type)
+            if (question != null)
             {
-                case QuestionType.SingleResponse:
-                    model = AutoMapper.Mapper.Map<SRQuestionViewModel>(question);
-                    break;
-                default:
-                    model = null;
-                    break;
+                var model = MapQuestionToEditModel(question);
+
+                SetViewsAccordingQType(question.Type);
+                return this.PartialView(questionEditPartial, model);
             }
 
-            return model;
+            return this.Content("You are trying to add question to nonexistent survey!");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SRQuestionEditPartial(SRQuestionEditModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                EditQuestion(model);
+            }
+
+            return this.QuestionViewPartial(model.SurveyNumber, model.Name);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult MCQuestionEditPartial(MCQuestionEditModel model)
+        {
+            if (model != null && ModelState.IsValid)
+            {
+                EditQuestion(model);
+            }
+
+            return this.QuestionViewPartial(model.SurveyNumber, model.Name);
         }
 
         [HttpGet]
         public ActionResult QuestionAddPartial(string surveyNumber, string type)
         {
             var survey = this.surveys.All().Where(s => s.SurveyNumber == surveyNumber).First();
+
             QuestionType qType;
             try 
             { 
@@ -81,11 +107,10 @@
 
             if (survey != null)
             {
-                SetViewsAccordingQType(qType);
                 int questionsCount = survey.Questions.Count();
                 string questionName = string.Format("Q{0}", questionsCount + 1);
 
-                var model = CreateInputModel();
+                var model = CreateInputModel(qType);
                 model.Name = questionName;
                 model.SurveyNumber = surveyNumber;
 
@@ -95,64 +120,6 @@
             }
 
             return this.Content("You are trying to add question to nonexistent survey!");
-        }
-
-        private void SetViewsAccordingQType(QuestionType type)
-        {
-            switch (type)
-            {
-                case QuestionType.SingleResponse:
-                    this.questionAddPartial = "_SRQuestionAddPartial";
-                    this.questionEditPartial = "_SRQuestionEditPartial";
-                    this.questionViewPartial = "_SRQuestionViewPartial";
-                    break;
-                case QuestionType.MultipleChoise:
-                    break;
-                case QuestionType.DropDownList:
-                    break;
-                case QuestionType.DateTime:
-                    break;
-                case QuestionType.SingleTextBox:
-                    break;
-                default:
-                    break;
-            }   
-        }
-
-        private QuestionType GetQuestionType(string type)
-        {
-            switch (type)
-            {
-                case "SRQ":
-                    return QuestionType.SingleResponse;
-                case "MCQ":
-                    return QuestionType.MultipleChoise;
-                case "DDLQ":
-                    return QuestionType.DropDownList;
-                case "DTQ":
-                    return QuestionType.DateTime;
-                default:
-                    throw new ArgumentException("Unsupported question type!");
-            }
-        }
-
-        private QuestionModel CreateInputModel()
-        {
-            switch (this.qType)
-            {
-                case QuestionType.SingleResponse:
-                    return new SRQuestionInputModel();
-                case QuestionType.MultipleChoise:
-                    break;
-                case QuestionType.DropDownList:
-                    break;
-                case QuestionType.DateTime:
-                    break;
-                case QuestionType.SingleTextBox:
-                    break;
-            }
-
-            throw new InvalidOperationException("Input model can not be created");
         }
 
         [HttpPost]
@@ -184,47 +151,164 @@
             return this.Content("<h3>The question was saved. Add next question...</h3>");
         }
 
-        [HttpGet]
-        public ActionResult QuestionEditPartial(string surveyNumber, string questionName)
-        {
-            var question = this.questions.All().Where(q => 
-                q.SurveyNumber == surveyNumber && 
-                q.Name == questionName).First();
-
-            if (question != null)
-            {
-                var model = AutoMapper.Mapper.Map<SRQuestionEditModel>(question);
-
-                return this.PartialView("_SRQuestionEditPartial", model);
-            }
-
-            return this.Content("You are trying to add question to nonexistent survey!");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult SRQuestionEditPartial(SRQuestionEditModel model)
+        public ActionResult MCQuestionAddPartial(MCQuestionInputModel model)
         {
             if (model != null && ModelState.IsValid)
             {
-                var question = this.questions.All().Where(q =>
-                q.SurveyNumber == model.SurveyNumber &&
-                q.Name == model.Name).First() as SRQuestion;
+                var survey = this.surveys.All().Where(s => s.SurveyNumber == model.SurveyNumber).First();
 
-                if (question != null)
+                //Add new question
+                if (survey != null)
                 {
-                    SRQuestion editedQuestion = AutoMapper.Mapper.Map<SRQuestion>(model);
-                    Mapper.Map<SRQuestionEditModel, SRQuestion>(model,question);
-
-                    this.questions.SaveChanges();
+                    MCQuestion question = AutoMapper.Mapper.Map<MCQuestion>(model);
+                    question.Type = QuestionType.MultipleChoise;
+                    survey.Questions.Add(question);
+                    this.surveys.SaveChanges();
                 }
                 else
                 {
-                    return this.Content("You are trying to edit nonexistant!");
+                    return this.Content("You are trying to add question to nonexistent survey!");
                 }
             }
+            else
+            {
+                return this.PartialView("_MCQuestionAddPartial", model);
+            }
 
-            return this.QuestionViewPartial(model.SurveyNumber, model.Name);
+            return this.Content("<h3>The question was saved. Add next question...</h3>");
+        }
+
+        private void EditQuestion(QuestionModel model)
+        {
+            var question = this.questions.All().Where(q =>
+                q.SurveyNumber == model.SurveyNumber &&
+                q.Name == model.Name).First();
+
+            if (question != null)
+            {
+                switch (question.Type)
+                {
+                    case QuestionType.SingleResponse:
+                        Mapper.Map<SRQuestionEditModel, SRQuestion>(model as SRQuestionEditModel, question as SRQuestion);
+                        break;
+                    case QuestionType.MultipleChoise:
+                        Mapper.Map<MCQuestionEditModel, MCQuestion>(model as MCQuestionEditModel, question as MCQuestion);
+                        break;
+                    case QuestionType.DropDownList:
+                        break;
+                    case QuestionType.DateTime:
+                        break;
+                    case QuestionType.SingleTextBox:
+                        break;
+                    default:
+                        break;
+                }
+
+                this.questions.SaveChanges();
+            }
+        }
+
+        private void SetViewsAccordingQType(QuestionType type)
+        {
+            switch (type)
+            {
+                case QuestionType.SingleResponse:
+                    this.questionAddPartial = "_SRQuestionAddPartial";
+                    this.questionEditPartial = "_SRQuestionEditPartial";
+                    this.questionViewPartial = "_SRQuestionViewPartial";
+                    break;
+                case QuestionType.MultipleChoise:
+                    this.questionAddPartial = "_MCQuestionAddPartial";
+                    this.questionEditPartial = "_MCQuestionEditPartial";
+                    this.questionViewPartial = "_MCQuestionViewPartial";
+                    break;
+                case QuestionType.DropDownList:
+                    break;
+                case QuestionType.DateTime:
+                    break;
+                case QuestionType.SingleTextBox:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private QuestionType GetQuestionType(string type)
+        {
+            switch (type)
+            {
+                case "SRQ":
+                    return QuestionType.SingleResponse;
+                case "MCQ":
+                    return QuestionType.MultipleChoise;
+                case "DDLQ":
+                    return QuestionType.DropDownList;
+                case "DTQ":
+                    return QuestionType.DateTime;
+                default:
+                    throw new ArgumentException("Unsupported question type!");
+            }
+        }
+
+        private QuestionModel CreateInputModel(QuestionType qType)
+        {
+            switch (qType)
+            {
+                case QuestionType.SingleResponse:
+                    return new SRQuestionInputModel();
+                case QuestionType.MultipleChoise:
+                    return new MCQuestionInputModel();
+                case QuestionType.DropDownList:
+                    break;
+                case QuestionType.DateTime:
+                    break;
+                case QuestionType.SingleTextBox:
+                    break;
+            }
+
+            throw new InvalidOperationException("Input model can not be created");
+        }
+
+        private QuestionModel MapQuestionToViewModel(Question question)
+        {
+            QuestionModel model;
+
+            switch (question.Type)
+            {
+                case QuestionType.SingleResponse:
+                    model = AutoMapper.Mapper.Map<SRQuestionViewModel>(question);
+                    break;
+                case QuestionType.MultipleChoise:
+                    model = AutoMapper.Mapper.Map<MCQuestionViewModel>(question);
+                    break;
+                default:
+                    model = null;
+                    break;
+            }
+
+            return model;
+        }
+
+        private QuestionModel MapQuestionToEditModel(Question question)
+        {
+            QuestionModel model;
+
+            switch (question.Type)
+            {
+                case QuestionType.SingleResponse:
+                    model = AutoMapper.Mapper.Map<SRQuestionEditModel>(question);
+                    break;
+                case QuestionType.MultipleChoise:
+                    model = AutoMapper.Mapper.Map<MCQuestionEditModel>(question);
+                    break;
+                default:
+                    model = null;
+                    break;
+            }
+
+            return model;
         }
     }
 }

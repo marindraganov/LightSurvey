@@ -212,6 +212,9 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\Questions\MCQuestionEditModel.cs" />
+    <Compile Include="ViewModels\Questions\MCQuestionInputModel.cs" />
+    <Compile Include="ViewModels\Questions\MCQuestionViewModel.cs" />
     <Compile Include="ViewModels\Questions\QuestionLinksViewModel.cs" />
     <Compile Include="ViewModels\Questions\QuestionModel.cs" />
     <Compile Include="ViewModels\Questions\SRQuestionEditModel.cs" />
@@ -307,6 +310,9 @@
     <Content Include="Views\CreateSurvey\_QuestionLinksPartial.cshtml" />
     <Content Include="Views\Questions\_SRQuestionViewPartial.cshtml" />
     <Content Include="Views\Questions\_SRQuestionEditPartial.cshtml" />
+    <Content Include="Views\Questions\_MCQuestionAddPartial.cshtml" />
+    <Content Include="Views\Questions\_MCQuestionEditPartial.cshtml" />
+    <Content Include="Views\Questions\_MCQuestionViewPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

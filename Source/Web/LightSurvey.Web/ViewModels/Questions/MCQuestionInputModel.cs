@@ -6,13 +6,17 @@
     using LightSurvey.Data.Models;
     using LightSurvey.Web.Infrastructure.Mapping;
 
-    public class SRQuestionEditModel : QuestionModel, IMapFrom<SRQuestion>
+    public class MCQuestionInputModel : QuestionModel, IMapFrom<MCQuestion>
     {
+        public MCQuestionInputModel()
+        {
+            this.Rows = new string[3];
+        }
+
         [Required]
         [DataType(DataType.MultilineText)]
         public string Text { get; set; }
 
-        [Required]
         public ICollection<string> Rows { get; set; }
     }
 }

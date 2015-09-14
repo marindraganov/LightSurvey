@@ -6,7 +6,7 @@
     using LightSurvey.Data.Models;
     using LightSurvey.Web.Infrastructure.Mapping;
 
-    public class SRQuestionEditModel : QuestionModel, IMapFrom<SRQuestion>
+    public class MCQuestionEditModel : QuestionModel, IMapFrom<MCQuestion>
     {
         [Required]
         [DataType(DataType.MultilineText)]

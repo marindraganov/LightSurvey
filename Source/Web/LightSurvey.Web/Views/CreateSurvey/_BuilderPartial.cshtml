@@ -22,13 +22,16 @@
             new { surveyNumber = @ViewBag.SurveyNumber , type = "SRQ"}, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
-            @Ajax.ActionLink("MultipleChoice", "MCQuestionAddPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+            @Ajax.ActionLink("MultipleChoice", "QuestionAddPartial", "Questions",
+            new { surveyNumber = @ViewBag.SurveyNumber, type = "MCQ" }, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
-            @Ajax.ActionLink("DropDownList", "DDLQuestionAddPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+            @Ajax.ActionLink("DropDownList", "QuestionAddPartial", "Questions",
+            new { surveyNumber = @ViewBag.SurveyNumber, type = "DDLQ" }, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
-            @Ajax.ActionLink("DateTime", "DTQuestionAddPartial", null, ajaxOptions, new { @class = ViewBag.LinkClass })
+            @Ajax.ActionLink("DateTime", "DTQuestionAddPartial", "Questions",
+            new { surveyNumber = @ViewBag.SurveyNumber, type = "DTQ" }, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
     </ul>
 

@@ -1,7 +1,7 @@
-﻿@model LightSurvey.Web.ViewModels.Questions.SRQuestionViewModel
+﻿@model LightSurvey.Web.ViewModels.Questions.MCQuestionViewModel
 
 @{
-    ViewBag.Title = "SRQView";
+    ViewBag.Title = "MCQView";
 
     var ajaxOpt = new AjaxOptions
     {
@@ -25,8 +25,8 @@
         <div class="answers-container" style="font-size:16px">
             @foreach (var item in Model.Rows)
             {
-                <div class="radio">
-                    <label><input type="radio" name="optradio">@item</label>
+                <div class="checkbox">
+                    <label><input type="checkbox" name="optcheckbox">@item</label>
                 </div>
             }
         </div>
@@ -35,6 +35,6 @@
 
     <div class="form-group text-center">
         @Ajax.ActionLink("Edit Question", "QuestionEditPartial",
-            new { surveyNumber = Model.SurveyNumber, questionName = Model.Name}, ajaxOpt, new { @class = "btn btn-lg btn-primary" })
+            new { surveyNumber = Model.SurveyNumber, questionName = Model.Name }, ajaxOpt, new { @class = "btn btn-lg btn-primary" })
     </div>
 </div>
