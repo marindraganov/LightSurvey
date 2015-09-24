@@ -13,5 +13,9 @@ namespace LightSurvey.Web.ViewModels.Questions
 
         [Required]
         public string Name { get; set; }
+
+        [Required]
+        [DataType(DataType.MultilineText)]
+        public string Text { get; set; }
     }
 }

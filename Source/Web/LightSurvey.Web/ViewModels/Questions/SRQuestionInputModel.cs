@@ -15,10 +15,6 @@
             this.Rows = new string[3];
         }
 
-        [Required]
-        [DataType(DataType.MultilineText)]
-        public string Text { get; set; }
-
         public ICollection<string> Rows { get; set; }
     }
 }

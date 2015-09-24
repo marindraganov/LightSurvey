@@ -12,6 +12,7 @@
     using LikeIt.Web.Controllers;
     using LightSurvey.Web.ViewModels.Questions;
 
+    [Authorize]
     public class CreateSurveyController : Controller
     {
         private IRepository<User> users;
@@ -28,19 +29,14 @@
         // GET: CreateSurvey
         public ActionResult Index()
         {
-            List<SelectListItem> surveyTitles = new List<SelectListItem>();
-            var existingSurveyTitles = this.surveys.All().Select(s => new { number = s.SurveyNumber, title = s.Title});
-
-            if (existingSurveyTitles != null)
-            {
-                foreach (var item in existingSurveyTitles)
-                {
-                    surveyTitles.Add(new SelectListItem { Value = item.number, Text = item.title });
-                }
-            }
+            string currUserId = User.Identity.GetUserId();
+            List<SelectListItem> existingSurveyTitles = this.surveys.All()
+                .Where(s=> s.UserId == currUserId)
+                .Select(s => new SelectListItem { Value = s.SurveyNumber, Text = s.Title })
+                .ToList();
 
             ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
-            ViewBag.items = surveyTitles;
+            ViewBag.items = existingSurveyTitles;
 
             return this.View();
         }
@@ -84,7 +80,7 @@
 
             Survey survey = this.surveys.All().Where(s => s.SurveyNumber == ExistingSurveyNumber).First();
 
-            if (survey != null)
+            if (survey != null && survey.UserId == this.User.Identity.GetUserId())
             {
                 this.ViewBag.QEditorContainerClass = GlobalConstants.QEditorContainerId;
                 this.ViewBag.SurveyName = survey.Title;

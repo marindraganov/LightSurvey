@@ -30,7 +30,7 @@
             new { surveyNumber = @ViewBag.SurveyNumber, type = "DDLQ" }, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
         <li class="list-group-item">
-            @Ajax.ActionLink("DateTime", "DTQuestionAddPartial", "Questions",
+            @Ajax.ActionLink("DateTime", "QuestionAddPartial", "Questions",
             new { surveyNumber = @ViewBag.SurveyNumber, type = "DTQ" }, ajaxOptions, new { @class = ViewBag.LinkClass })
         </li>
     </ul>

@@ -199,6 +199,7 @@
                     case QuestionType.DropDownList:
                         break;
                     case QuestionType.DateTime:
+                        Mapper.Map<DTQuestionEditModel, DTQuestion>(model as DTQuestionEditModel, question as DTQuestion);
                         break;
                     case QuestionType.SingleTextBox:
                         break;
@@ -227,6 +228,9 @@
                 case QuestionType.DropDownList:
                     break;
                 case QuestionType.DateTime:
+                    this.questionAddPartial = "_DTQuestionAddPartial";
+                    this.questionEditPartial = "_DTQuestionEditPartial";
+                    this.questionViewPartial = "_DTQuestionViewPartial";
                     break;
                 case QuestionType.SingleTextBox:
                     break;
@@ -263,7 +267,7 @@
                 case QuestionType.DropDownList:
                     break;
                 case QuestionType.DateTime:
-                    break;
+                    return new DTQuestionInputModel();
                 case QuestionType.SingleTextBox:
                     break;
             }
@@ -282,6 +286,12 @@
                     break;
                 case QuestionType.MultipleChoise:
                     model = AutoMapper.Mapper.Map<MCQuestionViewModel>(question);
+                    break;
+                case QuestionType.DropDownList:
+                    //model = AutoMapper.Mapper.Map<DDQuestionViewModel>(question);
+                    //break;
+                case QuestionType.DateTime:
+                    model = AutoMapper.Mapper.Map<DTQuestionViewModel>(question);
                     break;
                 default:
                     model = null;

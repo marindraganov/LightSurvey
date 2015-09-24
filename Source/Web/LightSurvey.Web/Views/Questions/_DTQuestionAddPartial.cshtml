@@ -1,0 +1,76 @@
+﻿
+@model LightSurvey.Web.ViewModels.Questions.DTQuestionInputModel
+
+@{
+    ViewBag.Title = "DTAdd";
+
+    var ajaxOpt = new AjaxOptions
+    {
+        UpdateTargetId = "q-editor-container",
+        InsertionMode = InsertionMode.Replace,
+        HttpMethod = "POST",
+        OnBegin = "setAddNewActive",
+        OnSuccess = "reloadQuestionsList"
+    };
+}
+
+@using (Ajax.BeginForm("DTQuestionAddPartial", "Questions", ajaxOpt, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+
+    @Html.HiddenFor(m => m.SurveyNumber)
+    @Html.HiddenFor(m => m.Name)
+    <div class="form-group v-align-center">
+        <div class="col-md-1">
+            <h4>@Model.Name.</h4>
+        </div>
+        <div class="col-md-11">
+            @Html.EditorFor(model => model.Text,
+                new { htmlAttributes = new { @class = "form-control question-text-input", required = "", placeholder = "Question text..." } })
+            @Html.ValidationMessageFor(model => model.Text, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <hr />
+    <div class="answers-container">
+            <div class="form-group ">
+                    <div class="checkbox checkbox-inline v-align-center">
+                        <label><input id="ShowDate" class="checkbox" name="ShowDate" type="checkbox" />ShowDate</label>
+                    </div>
+                    <div class="checkbox checkbox-inline">
+                        <label><input id="ShowTime" class="checkbox" name="ShowTime" type="checkbox" />ShowDate</label>
+                    </div>
+                    
+                    <div class="checkbox">
+                        <label><input id="MaxDate" class="checkbox" name="MaxDate" type="checkbox" />Set MaxDate</label>
+                    </div>
+                <div class="col-lg-4 form-group">
+                    <div class="checkbox">
+                        <label><input id="MinDate" class="checkbox" name="MinDate" type="checkbox" />Set MinDate</label> 
+                    </div>
+                    <input type='text' class="form-control" id='datetimepicker4' />
+                </div>
+           </div>
+    </div>
+    <br />
+    <div class="form-group text-center">
+        <input type="submit" value="Save" class="btn btn-primary" />
+    </div>
+}
+
+<script>
+    $(function () {
+        $('#datetimepicker').datetimepicker({
+
+            format: 'L',
+
+            showClose: true,
+
+            showClear: true,
+
+            toolbarPlacement: 'top'
+
+        });
+    });
+</script>
